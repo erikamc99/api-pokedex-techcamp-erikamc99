@@ -1,6 +1,6 @@
 let APIURL = 'https://pokeapi.co/api/v2/pokemon';
-let poke_container = document.getElementById('poke-container');
-let pokemon_count = 1010;
+let pokeContainer = document.getElementById('poke-container');
+let pokemonCount = 1010;
 let colors = {
     fire: '#ff7e00',
     grass: '#9bcc50',
@@ -23,41 +23,38 @@ let colors = {
 };
 
 let clearContainer = () => {
-    poke_container.innerHTML = '';
+    pokeContainer.innerHTML = '';
 };
 
 let renderPokemonList = (pokemons) => {
     clearContainer();
-    pokemons.forEach(pokemon => createPokemonCard(pokemon));
+    pokemons.forEach(createPokemonCard);
 };
 
 let fetchPokemons = async () => {
     let pokemons = await Promise.all(
-        Array.from({ length: pokemon_count }, (_, i) => getPokemonData(i + 1))
+        Array.from({ length: pokemonCount }, (_, i) => getPokemonData(i + 1))
     );
     renderPokemonList(pokemons);
 };
-fetchPokemons();
 
 let getPokemonData = async (id) => {
-    let url = `${APIURL}/${id}`;
-    let res = await fetch(url);
-    let data = await res.json();
-    return data;
+    let res = await fetch(`${APIURL}/${id}`);
+    return res.json();
 };
 
 let createPokemonCard = (pokemon) => {
     let pokemonItem = document.createElement('div');
     pokemonItem.classList.add('pokemon');
 
-    let poke_types = pokemon.types.map(type => type.type.name);
-    let type = poke_types[0]; 
-    let color = colors[type]; 
+    let pokeTypes = pokemon.types.map(type => type.type.name);
+    let type = pokeTypes[0];
+    let color = colors[type];
     pokemonItem.style.backgroundColor = color;
 
     let name = `${pokemon.name[0].toUpperCase()}${pokemon.name.slice(1)}`;
-    let id = pokemon.id.toString().padStart(3, '0'); 
-    let typeElements = poke_types.map(type => `<small class="type"><span>${type.toUpperCase()}</span></small>`).join(' ');
+    let id = pokemon.id.toString().padStart(3, '0');
+    let typeElements = pokeTypes.map(type => `<small class="type"><span>${type.toUpperCase()}</span></small>`).join(' ');
 
     pokemonItem.innerHTML = `
     <div class="pokemon-card-inner">
@@ -77,7 +74,7 @@ let createPokemonCard = (pokemon) => {
         </div>
     </div>
     `;
-    
+
     pokemonItem.addEventListener('click', async () => {
         let detailedPokemon = await getPokemonData(pokemon.id);
         let statsList = pokemonItem.querySelector('.stats');
@@ -87,11 +84,12 @@ let createPokemonCard = (pokemon) => {
             statsList.innerHTML = stats;
         }
 
-        let cardInner = pokemonItem.querySelector('.pokemon-card-inner');
-        cardInner.classList.toggle('flipped');
+        pokemonItem.querySelector('.pokemon-card-inner').classList.toggle('flipped');
     });
 
-    poke_container.appendChild(pokemonItem);
+    pokeContainer.appendChild(pokemonItem);
 };
+
+fetchPokemons();
 
 export { colors, fetchPokemons, getPokemonData, createPokemonCard };
