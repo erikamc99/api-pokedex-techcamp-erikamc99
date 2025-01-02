@@ -2,10 +2,10 @@ let APIURL = 'https://pokeapi.co/api/v2/pokemon';
 let poke_container = document.getElementById('poke-container');
 let pokemon_count = 1010;
 let colors = {
-    fire: '#FDDFDF',
-    grass: '#DEFDE0',
+    fire: '#ff7e00',
+    grass: '#9bcc50',
     electric: '#eed535',
-    water: '#DEF3FD',
+    water: '#4592c4',
     ground: '#f4e7da',
     rock: '#d5d5d4',
     fairy: '#fdb9e9',

@@ -163,7 +163,13 @@ clearSearchButton.addEventListener('click', clearSearch);
 
 toggleMenu.addEventListener('click', () => {
     let menu = document.getElementById('type-menu');
+    let icon = toggleMenu.querySelector('.material-icons');
     menu.classList.toggle('hidden');
+    if (menu.classList.contains('hidden')) {
+        icon.textContent = 'arrow_drop_down';
+    } else {
+        icon.textContent = 'arrow_drop_up';
+    }
 });
 
 fetchAllPokemons();
