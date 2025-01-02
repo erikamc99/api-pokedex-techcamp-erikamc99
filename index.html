@@ -4,14 +4,35 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>Pokedex</title>
   </head>
   <body>
-    <h1>Pokedex</h1>
+    <h1>Pokédex</h1>
+    <div id="search-container">
+      <form id="search-form">
+        <label for="search-input">Name or ID</label>
+        <input type="text" id="search-input" />
+        <button type="submit" id="search-button"><span class="material-icons">search</span></button>
+      </form>
+    </div>
+    <button id="clear-search" class="hidden">Clear search</button>
+    <div id="advanced-search">
+      <b id="toggle-menu">Filter</b>
+      <div id="type-menu" class="hidden">
+        <h2>Types</h2>
+        <ul id="type-list"></ul>
+      </div>
+    </div>
+
     <div class="poke-container" id="poke-container">
      
     </div>
-    <!-- Design inspired by this Dribbble shot: https://dribbble.com/shots/5611109--Pokemon -->
-    <script src="script.js"></script>
+
+    <script src="cardScript.js" type="module"></script>
+    <script src="searcherScript.js" type="module"></script>
+    <script src="filterScript.js" type="module"></script>
+ 
+
   </body>
 </html>
